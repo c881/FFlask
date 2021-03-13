@@ -12,7 +12,7 @@ def index():
 
 @app.route('/greet')
 def greet():
-    return render_template("greet.html", name=request.args.get("name"))
+    return render_template("greet.html", first_name=request.args.get("first_name","world"))
 
 
 if __name__ == '__main__':
