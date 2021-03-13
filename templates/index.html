@@ -1,14 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>FlaskFirst</title>
-</head>
-<body>
-    <form action="/greet" method="get">
+{% extends "layout.html" %}
+{% block body %}
+    <form action="/greet" method="post">
         <input name="first_name" autocomplete="off" autofocus placeholder="First Name" type="text">
         <input type="submit">
     </form>
-
-</body>
-</html>
+{% endblock %}

@@ -10,9 +10,11 @@ def index():
     return render_template("index.html")
 
 
-@app.route('/greet')
+@app.route('/greet', methods=["POST"])
 def greet():
-    return render_template("greet.html", first_name=request.args.get("first_name","world"))
+    # return render_template("greet.html", first_name=request.args.get("first_name","world"))
+    # if you use "GET"
+    return render_template("greet.html", first_name=request.form.get("first_name","world"))
 
 
 if __name__ == '__main__':
