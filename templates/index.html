@@ -1,10 +1,10 @@
 {% extends "layout.html" %}
 {% block body %}
-    <h1>Expences</h1>
+    <h1>הוצאות</h1>
 
-    <form action="/added" method="post">
-        <input name="sum"  type="text" autocomplete="off" autofocus placeholder="Sum">
-        <select name="categories">
+    <form action="/added" method="post"> <!-- dir="rtl"> -->
+        <input name="sum"  type="text" autocomplete="off" autofocus placeholder="סכום">
+        <select name="categories" ><!--dir="rtl"> -->
             <option disabled selected value="">קטגוריה</option>
 <!--            <option value="fuel">דלק</option>-->
 <!--            <option value="food">מזון</option>-->

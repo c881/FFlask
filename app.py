@@ -2,8 +2,8 @@ from flask import Flask, render_template, request, jsonify
 app = Flask(__name__)
 
 ERRORS = {"sum": "חסר סכום", "category": "לא בחרת קטגוריה", "categories": "קטגוריה לא קיימת"}
-EXPANCESS = {}
-CATEGORIES = {"fuel": " דלק", "food": " אוכל", "education": " חינוך",
+EXPENSES = {}
+CATEGORIES = {"fuel": " דלק", "food": " אוכל", "education": " חינוך", "clothes": "בגדים", "Health": "בריאות",
               "holidays": "חגים", "insurance": "ביטוח", "mortgage": "משכנתה", "taxes": "מיסים"}
 
 
