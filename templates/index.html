@@ -6,13 +6,16 @@
         <input name="sum"  type="text" autocomplete="off" autofocus placeholder="Sum">
         <select name="categories">
             <option disabled selected value="">קטגוריה</option>
-            <option value="fuel">דלק</option>
-            <option value="food">מזון</option>
-            <option value="education">חינוך</option>
-            <option value="holidays">חגים</option>
-            <option value="insurance">ביטוח</option>
-            <option value="mortgage">משכנתה</option>
-            <option value="taxes">מיסים</option>
+<!--            <option value="fuel">דלק</option>-->
+<!--            <option value="food">מזון</option>-->
+<!--            <option value="education">חינוך</option>-->
+<!--            <option value="holidays">חגים</option>-->
+<!--            <option value="insurance">ביטוח</option>-->
+<!--            <option value="mortgage">משכנתה</option>-->
+<!--            <option value="taxes">מיסים</option>-->
+            {% for category in categories %}
+                <option value="{{category}}">{{categories[category]}}</option>
+            {% endfor %}
         </select>
         <input type="submit" value="Add">
     </form>
