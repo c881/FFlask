@@ -1,8 +1,12 @@
 from flask import Flask, redirect, render_template, request, jsonify
+import sqlite3
+
+
 app = Flask(__name__)
+con = sqlite3.connect('example.db')
 
 ERRORS = {"sum": "חסר סכום", "category": "לא בחרת קטגוריה", "categories": "קטגוריה לא קיימת"}
-EXPENSES = []
+# EXPENSES = []
 CATEGORIES = {"fuel": " דלק", "food": " אוכל", "education": " חינוך", "clothes": "בגדים", "Health": "בריאות",
               "holidays": "חגים", "insurance": "ביטוח", "mortgage": "משכנתה", "taxes": "מיסים"}
 
@@ -25,7 +29,7 @@ def added():
     if category not in CATEGORIES:
         return render_template("error.html", message=ERRORS["categories"])
 
-    EXPENSES.append((category, sum_input))
+    # EXPENSES.append((category, sum_input))
     return redirect("/")
 
 
