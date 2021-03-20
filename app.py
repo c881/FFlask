@@ -6,7 +6,7 @@ app = Flask(__name__)
 con = sqlite3.connect('example.db')
 
 ERRORS = {"sum": "חסר סכום", "category": "לא בחרת קטגוריה", "categories": "קטגוריה לא קיימת"}
-# EXPENSES = []
+EXPENSES = []
 CATEGORIES = {"fuel": " דלק", "food": " אוכל", "education": " חינוך", "clothes": "בגדים", "Health": "בריאות",
               "holidays": "חגים", "insurance": "ביטוח", "mortgage": "משכנתה", "taxes": "מיסים"}
 
