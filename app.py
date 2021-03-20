@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, redirect, render_template, request, jsonify
 app = Flask(__name__)
 
 ERRORS = {"sum": "חסר סכום", "category": "לא בחרת קטגוריה", "categories": "קטגוריה לא קיימת"}
@@ -26,10 +26,10 @@ def added():
         return render_template("error.html", message=ERRORS["categories"])
 
     EXPENSES.append((category, sum_input))
-    return render_template("index.html", categories=CATEGORIES)
+    return redirect("/")
 
 
-@app.route('/checked', methods=["POST"])
+@app.route('/checked')
 def checked():
     return render_template("listed.html", expenses=EXPENSES, categories=CATEGORIES)
 if __name__ == '__main__':
