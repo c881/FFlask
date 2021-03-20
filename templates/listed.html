@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block title %}
+    גלנטי - רשימת הוצאות
+{% endblock %}
+
+
+{% block body%}
+
+<table>
+    <thead>
+        <th>הוצאה</th>
+        <th>סכום</th>
+    </thead>
+        {% for expense in expenses %}
+            <tr>
+                <td>{{ categories[expense[0]] }}</td>
+                <td>{{ expense[1] }}</td>
+            </tr>
+        {% endfor %}
+    <tbody>
+
+    </tbody>
+</table>
+
+{% endblock %}
