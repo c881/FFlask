@@ -33,12 +33,12 @@ def added():
 
     con = sqlite3.connect('sample.db')
     cur = con.cursor()
-    cur.execute('INSERT INTO expenses VALUES (?, ?)',(category, sum_input))
+    cur.execute('INSERT INTO expenses VALUES (?, ?)', (category, sum_input))
     con.commit()
-  #  cur.execute('SELECT * FROM expenses ORDER BY category')
-  #  rows = cur.fetchall()
-  #  for row in rows:
-  #      print(row)
+#  cur.execute('SELECT * FROM expenses ORDER BY category')
+#  rows = cur.fetchall()
+#  for row in rows:
+#      print(row)
     return redirect("/")
 
 
@@ -48,7 +48,7 @@ def checked():
     cur = con.cursor()
     cur.execute('SELECT * FROM expenses ORDER BY category')
     rows = cur.fetchall()
-    return render_template("listed.html", rows=rows,categories=CATEGORIES)
+    return render_template("listed.html", rows=rows, categories=CATEGORIES)
 
 
 if __name__ == '__main__':
