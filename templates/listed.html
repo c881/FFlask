@@ -8,15 +8,23 @@
 
 <table>
     <thead>
-        <th>הוצאה</th>
-        <th>סכום</th>
+        <tr>
+            <th>הוצאה</th>
+            <th>סכום</th>
+        </tr>
     </thead>
-        {% for expense in expenses %}
+        {% for row in rows %}
             <tr>
-                <td>{{ categories[expense[0]] }}</td>
-                <td>{{ expense[1] }}</td>
+                <td>{{ categories[row[0]] }}</td>
+                <td>{{ row[1] }}</td>
             </tr>
         {% endfor %}
+    <tfoot>
+        <tr>
+            <td>הוצאה</td>
+            <td>סכום</td>
+        </tr>
+    </tfoot>
     <tbody>
 
     </tbody>

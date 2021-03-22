@@ -35,15 +35,21 @@ def added():
     cur = con.cursor()
     cur.execute('INSERT INTO expenses VALUES (?, ?)',(category, sum_input))
     con.commit()
-    cur.execute('SELECT * FROM expenses ORDER BY category')
-    rows = cur.fetchall()
-    for row in rows:
-        print(row)
+  #  cur.execute('SELECT * FROM expenses ORDER BY category')
+  #  rows = cur.fetchall()
+  #  for row in rows:
+  #      print(row)
     return redirect("/")
 
 
 @app.route('/checked')
 def checked():
-    return render_template("listed.html", expenses=EXPENSES, categories=CATEGORIES)
+    con = sqlite3.connect('sample.db')
+    cur = con.cursor()
+    cur.execute('SELECT * FROM expenses ORDER BY category')
+    rows = cur.fetchall()
+    return render_template("listed.html", rows=rows,categories=CATEGORIES)
+
+
 if __name__ == '__main__':
     app.run(threaded=True, port=5000)
