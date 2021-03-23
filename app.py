@@ -1,9 +1,13 @@
 from cs50 import SQL
-from flask import Flask, redirect, render_template, request, jsonify
+from flask import Flask, redirect, render_template, request, session #jsonify
+from flask-session import Session
 # import sqlite3
 
 
 app = Flask(__name__)
+app.config["SESSION_PERMANENT"] = False
+app.config["SESSION_TYPE"] = "filesystem"
+Session(app)
 
 db = SQL("sqlite:///sample.db")
 
