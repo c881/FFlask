@@ -15,8 +15,8 @@
     </thead>
         {% for row in rows %}
             <tr>
-                <td>{{ categories[row[0]] }}</td>
-                <td>{{ row[1] }}</td>
+                <td>{{ categories[row.category] }}</td>
+                <td>{{ row.sum }}</td>
             </tr>
         {% endfor %}
     <tfoot>

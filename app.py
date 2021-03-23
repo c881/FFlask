@@ -1,9 +1,11 @@
+from cs50 import SQL
 from flask import Flask, redirect, render_template, request, jsonify
-import sqlite3
+# import sqlite3
 
 
 app = Flask(__name__)
 
+db = SQL("sqlite:///sample.db")
 
 # EXPENSES = []
 ERRORS = {"sum": "חסר סכום", "category": "לא בחרת קטגוריה", "categories": "קטגוריה לא קיימת"}
@@ -31,23 +33,21 @@ def added():
 
     # EXPENSES.append((category, sum_input))
 
-    con = sqlite3.connect('sample.db')
-    cur = con.cursor()
-    cur.execute('INSERT INTO expenses VALUES (?, ?)', (category, sum_input))
-    con.commit()
-#  cur.execute('SELECT * FROM expenses ORDER BY category')
-#  rows = cur.fetchall()
-#  for row in rows:
-#      print(row)
+    # con = sqlite3.connect('sample.db')
+    # cur = con.cursor()
+    # cur.execute('INSERT INTO expenses VALUES (?, ?)', (category, sum_input))
+    # con.commit()
+    db.execute('INSERT INTO expenses VALUES (?, ?)', category, sum_input)
     return redirect("/")
 
 
-@app.route('/checked')
+@app.route('/listed')
 def checked():
-    con = sqlite3.connect('sample.db')
-    cur = con.cursor()
-    cur.execute('SELECT * FROM expenses ORDER BY category')
-    rows = cur.fetchall()
+    # con = sqlite3.connect('sample.db')
+    # cur = con.cursor()
+    # cur.execute('SELECT * FROM expenses ORDER BY category')
+    # rows = cur.fetchall()
+    rows = db.execute('SELECT * FROM expenses ORDER BY category')
     return render_template("listed.html", rows=rows, categories=CATEGORIES)
 
 
