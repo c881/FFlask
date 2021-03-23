@@ -6,6 +6,10 @@
 
 {% block body%}
 
-{{ message }}
+    <form action="/login" method="post">
+        <input name="name"  type="text" autocomplete="off" autofocus placeholder="Name">
+        <input name="password"  type="text" autocomplete="off" autofocus placeholder="Password">
+        <input type="submit" value="התחבר">
+    </form>
 
 {% endblock %}

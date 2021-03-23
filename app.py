@@ -1,6 +1,6 @@
 from cs50 import SQL
-from flask import Flask, redirect, render_template, request, session #jsonify
-from flask-session import Session
+from flask import Flask, redirect, render_template, request, session
+from flask_session import Session
 # import sqlite3
 
 
@@ -35,22 +35,12 @@ def added():
     if category not in CATEGORIES:
         return render_template("error.html", message=ERRORS["categories"])
 
-    # EXPENSES.append((category, sum_input))
-
-    # con = sqlite3.connect('sample.db')
-    # cur = con.cursor()
-    # cur.execute('INSERT INTO expenses VALUES (?, ?)', (category, sum_input))
-    # con.commit()
     db.execute('INSERT INTO expenses VALUES (?, ?)', category, sum_input)
     return redirect("/")
 
 
 @app.route('/listed')
 def checked():
-    # con = sqlite3.connect('sample.db')
-    # cur = con.cursor()
-    # cur.execute('SELECT * FROM expenses ORDER BY category')
-    # rows = cur.fetchall()
     rows = db.execute('SELECT * FROM expenses ORDER BY category')
     return render_template("listed.html", rows=rows, categories=CATEGORIES)
 
