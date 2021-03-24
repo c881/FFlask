@@ -5,19 +5,22 @@
 
 
 {% block body %}
-    <h1>הוצאות</h1>
+    {% if session.name %}
+        <h1>הוצאות</h1>
 
-    <form action="/added" method="post">
-        <input name="sum"  type="text" autocomplete="off" autofocus placeholder="סכום">
-        <select name="categories" >
-            <option disabled selected value="">קטגוריה</option>
-            {% for category in categories %}
-                <option value="{{category}}">{{categories[category]}}</option>
-            {% endfor %}
-        </select>
-        <input type="submit" value="Add">
-    </form>
-<!--    <form action="/checked" method="post">-->
-<!--        <input type="submit" value="Check">-->
-<!--    </form>-->
+        <form action="/added" method="post">
+            <input name="sum"  type="text" autocomplete="off" autofocus placeholder="סכום">
+            <select name="categories" >
+                <option disabled selected value="">קטגוריה</option>
+                {% for category in categories %}
+                    <option value="{{category}}">{{categories[category]}}</option>
+                {% endfor %}
+            </select>
+            <input type="submit" value="Add">
+            <br><br><br><br><br>
+            <a href="/logout">Logout.</a>
+        </form>
+    {% else %}
+        <h1> You are not logged in. <a href="/login">Log in</a></h1>
+    {% endif %}
 {% endblock %}
