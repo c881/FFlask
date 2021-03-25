@@ -11,17 +11,14 @@ Session(app)
 
 db = SQL("sqlite:///sample.db")
 
-# EXPENSES = []
 ERRORS = {"sum": "חסר סכום", "category": "לא בחרת קטגוריה", "categories": "קטגוריה לא קיימת"}
-CATEGORIES = {"fuel": " דלק", "food": " אוכל", "education": " חינוך", "clothes": "בגדים", "Health": "בריאות",
-              "holidays": "חגים", "insurance": "ביטוח", "mortgage": "משכנתה", "taxes": "מיסים"}
 
 
 @app.route('/')
 def index():
     if not session.get("name"):
         return redirect("/login",)
-    return render_template("index.html", categories=CATEGORIES)
+    return render_template("index.html", categories=db.execute('SELECT * FROM categories ORDER BY category_id'))
 
 
 @app.route('/login', methods=["GET", "POST"])
@@ -44,11 +41,13 @@ def added():
     if not sum_input:
         return render_template("error.html", message=ERRORS["sum"])
 
-    category = request.form.get("categories")
+    category = int(request.form.get("categories"))
     if not category:
         return render_template("error.html", message=ERRORS["category"])
 
-    if category not in CATEGORIES:
+    rows = db.execute('SELECT category_id FROM categories ORDER BY category_id')
+    categories = [row['category_id'] for row in rows]
+    if category not in categories:
         return render_template("error.html", message=ERRORS["categories"])
 
     db.execute('INSERT INTO expenses VALUES (?, ?)', category, sum_input)
@@ -57,8 +56,11 @@ def added():
 
 @app.route('/listed')
 def checked():
-    rows = db.execute('SELECT * FROM expenses ORDER BY category')
-    return render_template("listed.html", rows=rows, categories=CATEGORIES)
+    rows = db.execute('''SELECT a.category, a.sum, b.category_h_name 
+                        FROM expenses a, 
+                             categories b
+                             where a.category = b.category_id ORDER BY category_id''')
+    return render_template("listed.html", rows=rows)
 
 
 if __name__ == '__main__':

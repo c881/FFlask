@@ -13,7 +13,7 @@
             <select name="categories" >
                 <option disabled selected value="">קטגוריה</option>
                 {% for category in categories %}
-                    <option value="{{category}}">{{categories[category]}}</option>
+                    <option value="{{category.category_id}}">{{category.category_h_name}}</option>
                 {% endfor %}
             </select>
             <input type="submit" value="Add">
