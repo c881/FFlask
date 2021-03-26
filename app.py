@@ -1,7 +1,6 @@
 from cs50 import SQL
 from flask import Flask, redirect, render_template, request, session
 from flask_session import Session
-# import sqlite3
 
 
 app = Flask(__name__)
@@ -11,18 +10,24 @@ Session(app)
 
 db = SQL("sqlite:///sample.db")
 
-ERRORS = {"sum": "חסר סכום", "category": "לא בחרת קטגוריה", "categories": "קטגוריה לא קיימת"}
+valid_chars = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.']
+ERRORS = {"sum": "חסר סכום", "category": "לא בחרת קטגוריה", "categories": "קטגוריה לא קיימת",
+          "values": "שדה סכום מכיל תוים מעבר לספרות ו/או/ נקודה"}
 
 
 @app.route('/')
 def index():
+    """If the user isn't logged in, got to Login page.
+        Else, if logged in - got to index and use the user name for personalize."""
     if not session.get("name"):
         return redirect("/login",)
-    return render_template("index.html", user_name=session.get("name"), categories=db.execute('SELECT * FROM categories ORDER BY category_id'))
+    return render_template("index.html", user_name=session.get("name"),
+                           categories=db.execute('SELECT * FROM categories ORDER BY category_id'))
 
 
 @app.route('/login', methods=["GET", "POST"])
 def login():
+    """the page work with both methods."""
     if request.method == 'POST':
         session["name"] = request.form.get("name")
         return redirect("/")
@@ -37,9 +42,14 @@ def logout():
 
 @app.route('/added', methods=["POST"])
 def added():
+    """We will add the expense to the sql table and return to enter a new expense.
+        test the values for correctness."""
     sum_input = request.form.get("sum")
     if not sum_input:
         return render_template("error.html", message=ERRORS["sum"])
+    for char in sum_input:
+        if char not in valid_chars:
+            return render_template("error.html", message=ERRORS["values"])
 
     category = int(request.form.get("categories"))
     if not category:
@@ -49,7 +59,7 @@ def added():
     if len(rows) == 0:
         return render_template("error.html", message=ERRORS["categories"])
 
-    db.execute('INSERT INTO expenses VALUES (?, ?)', int(category), sum_input)
+    db.execute('INSERT INTO expenses VALUES (?, ?)', int(category), float(sum_input))
     return redirect("/")
 
 
