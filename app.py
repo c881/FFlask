@@ -45,9 +45,8 @@ def added():
     if not category:
         return render_template("error.html", message=ERRORS["category"])
 
-    rows = db.execute('SELECT category_id FROM categories ORDER BY category_id')
-    categories = [row['category_id'] for row in rows]
-    if category not in categories:
+    rows = db.execute('SELECT category_id FROM categories where category_id  = (?)', int(category))
+    if len(rows) > 0:
         return render_template("error.html", message=ERRORS["categories"])
 
     db.execute('INSERT INTO expenses VALUES (?, ?)', category, sum_input)
