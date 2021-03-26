@@ -7,7 +7,7 @@
 {% block body %}
     {% if session.name %}
         <h1>הוצאות</h1>
-
+        <h2>ברוך הבא, {{user_name}}</h2>
         <form action="/added" method="post">
             <input name="sum"  type="text" autocomplete="off" autofocus placeholder="סכום">
             <select name="categories" >

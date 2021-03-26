@@ -18,7 +18,7 @@ ERRORS = {"sum": "חסר סכום", "category": "לא בחרת קטגוריה", 
 def index():
     if not session.get("name"):
         return redirect("/login",)
-    return render_template("index.html", categories=db.execute('SELECT * FROM categories ORDER BY category_id'))
+    return render_template("index.html", user_name=session.get("name"), categories=db.execute('SELECT * FROM categories ORDER BY category_id'))
 
 
 @app.route('/login', methods=["GET", "POST"])
@@ -46,10 +46,10 @@ def added():
         return render_template("error.html", message=ERRORS["category"])
 
     rows = db.execute('SELECT category_id FROM categories where category_id  = (?)', int(category))
-    if len(rows) > 0:
+    if len(rows) == 0:
         return render_template("error.html", message=ERRORS["categories"])
 
-    db.execute('INSERT INTO expenses VALUES (?, ?)', category, sum_input)
+    db.execute('INSERT INTO expenses VALUES (?, ?)', int(category), sum_input)
     return redirect("/")
 
 
