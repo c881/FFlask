@@ -22,7 +22,8 @@ def index():
     if not session.get("name"):
         return redirect("/login",)
     return render_template("index.html", user_name=session.get("name"),
-                           categories=db.execute('SELECT * FROM categories ORDER BY category_id'))
+                           categories=db.execute('SELECT * FROM categories ORDER BY category_id'),
+                           pays=db.execute('SELECT * FROM payTypes ORDER BY TypeID'))
 
 
 @app.route('/login', methods=["GET", "POST"])
