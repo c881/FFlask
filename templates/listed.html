@@ -11,12 +11,18 @@
         <tr>
             <th>הוצאה</th>
             <th>סכום</th>
+            <th>מספר תשלומים</th>
+            <th>סוג תשלום</th>
+            <th>תאריך</th>
         </tr>
     </thead>
         {% for row in rows %}
             <tr>
                 <td>{{ row.category_h_name }}</td>
                 <td>{{ row.sum }}</td>
+                <td>{{ row.NumOfPays }}</td>
+                <td>{{ row.PayName }}</td>
+                <td>{{ row.DateOfPay }}</td>
             </tr>
         {% endfor %}
     <tfoot>
