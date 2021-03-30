@@ -10,24 +10,29 @@
         <h2>ברוך הבא, {{user_name}}</h2>
         <form action="/added" method="post">
             <input name="sum"  type="text" autocomplete="off" autofocus placeholder="סכום">
+            <br>
             <select name="categories" >
                 <option disabled selected value="">קטגוריה</option>
-                {% for category in categories %}
-                    <option value="{{category.category_id}}">{{category.category_h_name}}</option>
-                {% endfor %}
+                    {% for category in categories %}
+                        <option value="{{category.category_id}}">{{category.category_h_name}}</option>
+                    {% endfor %}
             </select>
+            <br>
             <select name="pays" >
                 <option selected value="">סוג תשלום</option>
-                {% for pay in pays %}
-                    <option value="{{pay.PayID}}">{{pay.PayName}}</option>
-                {% endfor %}
+                    {% for pay in pays %}
+                        <option value="{{pay.PayID}}">{{pay.PayName}}</option>
+                    {% endfor %}
             </select>
+            <br>
             <input name="settlements"  type="text" autocomplete="off" autofocus placeholder="מספר תשלומים">
+            <br>
             <input type="date" id="paydate" name="paydate" placeholder="תאריך הוצאה">
+            <br>
             <input type="submit" value="Add">
-            <br><br><br><br><br>
-            <a href="/logout">Logout.</a>
         </form>
+        <br><br><br><br><br>
+        <a href="/logout">Logout.</a>
     {% else %}
         <h1> You are not logged in. <a href="/login">Log in</a></h1>
     {% endif %}
