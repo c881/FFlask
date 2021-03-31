@@ -1,33 +1,33 @@
-{% extends "layout.html" %}
+{% extends "layout_he.html" %}
 {% block title %}
-    Galanty - Expenses Tracker
+    גלנטי - רישום הוצאות
 {% endblock %}
 
 
 {% block body %}
     {% if session.name %}
-        <h1>Expenses</h1>
-        <h2>Welcome, {{user_name}} </h2>
+        <h1>הוצאות</h1>
+        <h2>ברוך הבא, {{user_name}}</h2>
         <form action="/added" method="post">
-            <input name="sum"  type="text" autocomplete="off" autofocus placeholder="Amount">
+            <input name="sum"  type="text" autocomplete="off" autofocus placeholder="סכום">
             <br>
             <select name="categories" >
-                <option disabled selected value="">Category</option>
+                <option disabled selected value="">קטגוריה</option>
                     {% for category in categories %}
-                        <option value="{{category.category_id}}">{{category.category_e_name}}</option>
+                        <option value="{{category.category_id}}">{{category.category_h_name}}</option>
                     {% endfor %}
             </select>
             <br>
             <select name="pays" >
-                <option selected value="">Payment type</option>
+                <option selected value="">סוג תשלום</option>
                     {% for pay in pays %}
                         <option value="{{pay.PayID}}">{{pay.PayName}}</option>
                     {% endfor %}
             </select>
             <br>
-            <input name="settlements"  type="text" autocomplete="off" autofocus placeholder="Number of payments" value="1">
+            <input name="settlements"  type="text" autocomplete="off" autofocus placeholder="מספר תשלומים" value="1">
             <br>
-            <input type="date" id="paydate" name="paydate" placeholder="Expense date" >
+            <input type="date" id="paydate" name="paydate" placeholder="תאריך הוצאה" >
             <br>
             <input type="submit" value="Add">
         </form>

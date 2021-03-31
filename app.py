@@ -17,12 +17,25 @@ ERRORS = {"sum": "חסר סכום", "category": "לא בחרת קטגוריה", 
 
 
 @app.route('/')
+@app.route('/en')
 def index():
     """If the user isn't logged in, got to Login page.
-        Else, if logged in - got to index and use the user name for personalize."""
+        Else, if logged in - got to index and use the user name for personalize.
+        Default page in english."""
     if not session.get("name"):
         return redirect("/login",)
     return render_template("index.html", user_name=session.get("name"),
+                           categories=db.execute('SELECT * FROM categories ORDER BY category_id'),
+                           pays=db.execute('SELECT * FROM payTypes ORDER BY PayID'))
+
+@app.route('/he')
+def index_he():
+    """If the user isn't logged in, got to Login page.
+            Else, if logged in - got to index and use the user name for personalize.
+            For Hebrew users"""
+    if not session.get("name"):
+        return redirect("/login", )
+    return render_template("index_he.html", user_name=session.get("name"),
                            categories=db.execute('SELECT * FROM categories ORDER BY category_id'),
                            pays=db.execute('SELECT * FROM payTypes ORDER BY PayID'))
 
