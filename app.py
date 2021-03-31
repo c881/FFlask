@@ -97,18 +97,20 @@ def added():
 
 @app.route('/listed')
 def checked():
-    rows = db.execute('''SELECT a.categoryID, 
+    rows = db.execute('''SELECT a.category_id, 
                                 a.sum, 
                                 b.category_h_name,
-                                c.PayName,
-                                a.NumOfPays,
-                                a.DateOfPay 
+                                c.pay_h_name,
+                                c.pay_e_name,
+                                c.pay_e_name,
+                                a.Num_Of_Pays,
+                                a.Date_Of_Pay 
                         FROM expenses a, 
                              categories b,
                              paytypes c
-                             where a.categoryID = b.category_id
-                               and a.PayTypeId = c.PayID 
-                             ORDER BY category_id, DateOfPay''')
+                             where a.category_id = b.category_id
+                               and a.Pay_Type_Id = c.Pay_ID 
+                             ORDER BY category_id, Date_Of_Pay''')
     return render_template("listed.html", rows=rows)
 
 
