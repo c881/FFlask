@@ -24,20 +24,25 @@ def index():
         Default page in english."""
     if not session.get("name"):
         return redirect("/login",)
-    return render_template("index.html", user_name=session.get("name"),
+    if not session.get("lang") or session.get("lang") == "en":
+        return render_template("index.html", user_name=session.get("name"),
                            categories=db.execute('SELECT * FROM categories ORDER BY category_id'),
                            pays=db.execute('SELECT * FROM payTypes ORDER BY PayID'))
+    else:
+        return render_template("index_he.html", user_name=session.get("name"),
+                               categories=db.execute('SELECT * FROM categories ORDER BY category_id'),
+                               pays=db.execute('SELECT * FROM payTypes ORDER BY PayID'))
 
-@app.route('/he')
-def index_he():
-    """If the user isn't logged in, got to Login page.
-            Else, if logged in - got to index and use the user name for personalize.
-            For Hebrew users"""
-    if not session.get("name"):
-        return redirect("/login", )
-    return render_template("index_he.html", user_name=session.get("name"),
-                           categories=db.execute('SELECT * FROM categories ORDER BY category_id'),
-                           pays=db.execute('SELECT * FROM payTypes ORDER BY PayID'))
+# @app.route('/he')
+# def index_he():
+#     """If the user isn't logged in, got to Login page.
+#             Else, if logged in - got to index and use the user name for personalize.
+#             For Hebrew users"""
+#     if not session.get("name"):
+#         return redirect("/login", )
+#     return render_template("index_he.html", user_name=session.get("name"),
+#                            categories=db.execute('SELECT * FROM categories ORDER BY category_id'),
+#                            pays=db.execute('SELECT * FROM payTypes ORDER BY PayID'))
 
 
 @app.route('/login', methods=["GET", "POST"])
@@ -45,6 +50,7 @@ def login():
     """the page work with both methods."""
     if request.method == 'POST':
         session["name"] = request.form.get("name")
+        session["lang"] = request.form.get("lang")
         return redirect("/")
     return render_template("login.html")
 

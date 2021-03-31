@@ -1,7 +1,11 @@
 {% extends "layout.html" %}
+{% block head %}
+
+{% endblock %}
 {% block title %}
     גלנטי - התחברות
 {% endblock %}
+
 
 
 {% block body%}
@@ -9,6 +13,10 @@
     <form action="/login" method="post">
         <input name="name"  type="text" autocomplete="off" autofocus placeholder="Name">
         <input name="password"  type="text" autocomplete="off" autofocus placeholder="Password">
+        <select class="form-select" name="lang">
+            <option value="en">English</option>
+            <option value="he">עברית</option>
+        </select>
         <input type="submit" value="התחבר">
     </form>
 
