@@ -21,7 +21,7 @@
             <select name="pays" >
                 <option selected value="">סוג תשלום</option>
                     {% for pay in pays %}
-                        <option value="{{pay.PayID}}">{{pay.PayName}}</option>
+                        <option value="{{pay.pay_id}}">{{pay.pay_h_name}}</option>
                     {% endfor %}
             </select>
             <br>

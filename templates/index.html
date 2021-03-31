@@ -21,7 +21,7 @@
             <select class="form-select" name="pays" >
                 <option selected value="">Payment type</option>
                     {% for pay in pays %}
-                        <option value="{{pay.PayID}}">{{pay.PayName}}</option>
+                        <option value="{{pay.pay_id}}">{{pay.pay_e_name}}</option>
                     {% endfor %}
             </select>
             <br>
