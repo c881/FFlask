@@ -110,7 +110,7 @@ def checked():
                              paytypes c
                              where a.category_id = b.category_id
                                and a.Pay_Type_Id = c.Pay_ID 
-                             ORDER BY category_id, Date_Of_Pay''')
+                             ORDER BY a.category_id, Date_Of_Pay''')
     return render_template("listed.html", rows=rows)
 
 
