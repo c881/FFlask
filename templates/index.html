@@ -35,8 +35,12 @@
         <button onclick="window.location.href='listed'">
           Current State
         </button>
-        <!-- <input type="submit" value="Current"> <input type="submit" value="Graph"> -->
-        <a href="/logout">Logout.</a>
+        <button onclick="window.location.href='Graph'">
+          Graph
+        </button>
+        <button onclick="window.location.href='logout'">
+          LogOut
+        </button>
     {% else %}
         <h1> You are not logged in. <a href="/login">Log in</a></h1>
     {% endif %}
