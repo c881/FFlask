@@ -1,46 +1,98 @@
-{% extends "layout.html" %}
-{% block title %}
-    Galanty - Expenses Tracker
+{% if user_lang == "en" %}
+    {% extends "layout.html" %}
+{% else %}
+    {% extends "layout_he.html" %}
+{% endif %}
+{% block head %}
+
 {% endblock %}
 
+{% block title %}
+    {% if user_lang == "en" %}
+        Galanty - Expenses Tracker
+    {% else %}
+        גלנטי - רישום הוצאות
+    {% endif %}
+{% endblock %}
 
 {% block body %}
     {% if session.name %}
-        <h1>Expenses</h1>
-        <h2>Welcome, {{user_name}} </h2>
-        <form action="/added" method="post">
-            <input name="sum"  type="text" autocomplete="off" autofocus placeholder="Amount">
-            <br>
-            <select class="form-select" name="categories" >
-                <option disabled selected value="">Category</option>
-                    {% for category in categories %}
-                        <option value="{{category.category_id}}">{{category.category_e_name}}</option>
-                    {% endfor %}
-            </select>
-            <br>
-            <select class="form-select" name="pays" >
-                <option selected value="">Payment type</option>
-                    {% for pay in pays %}
-                        <option value="{{pay.pay_id}}">{{pay.pay_e_name}}</option>
-                    {% endfor %}
-            </select>
-            <br>
-            <input name="settlements"  type="text" autocomplete="off" autofocus placeholder="Number of payments" value="1">
-            <br>
-            <input type="date" id="paydate" name="paydate" placeholder="Expense date" >
-            <br>
-            <input type="submit" value="Add">
-        </form>
-        <br><br><br><br><br>
-        <button onclick="window.location.href='listed'">
-          Current State
-        </button>
-        <button onclick="window.location.href='Graph'">
-          Graph
-        </button>
-        <button onclick="window.location.href='logout'">
-          LogOut
-        </button>
+        {% if user_lang == "en" %}
+            <h1>Expenses</h1>
+            <h2>Welcome, {{user_name}} </h2>
+        {% else %}
+            <h1>הוצאות</h1>
+            <h2>ברוך הבא, {{user_name}}</h2>
+        {% endif %}
+
+            <form action="/added" method="post">
+                <table>
+                    <tr>
+                        <td class="english">
+                            <label class="english" for="sum">sum</label>
+                        </td>
+                        <td>
+                            <input name="sum" id="sum" type="text" autocomplete="off" autofocus placeholder="Amount">
+                        </td>
+                        <td class="hebrew">
+                            <label class="hebrew" for="sum">סכום</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="english">
+                            <label class="english" for="categories">categories</label>
+                        </td>
+                        <td>
+                            <select class="form-select" id= "categories" name="categories" >
+                                <option disabled selected value="">Category</option>
+                                    {% for category in categories %}
+                                        <option value="{{category.category_id}}">{{category.category_e_name}}</option>
+                                    {% endfor %}
+                            </select>
+                        </td>
+                        <td class="hebrew">
+                            <label class="hebrew" for="categories">קטגוריות</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="english">
+                            <label class="english" for="pays">pays</label>
+                        </td>
+                        <td>
+                            <select class="form-select" id="pays" name="pays" >
+                                <option selected value="">Payment type</option>
+                                    {% for pay in pays %}
+                                        <option value="{{pay.pay_id}}">{{pay.pay_e_name}}</option>
+                                    {% endfor %}
+                            </select>
+                        </td>
+                        <td class="hebrew">
+                            <label class="hebrew" for="pays">סוג תשלום</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="english">
+                            <label class="english" for="pays">pays</label>
+                        </td>
+                        <td>
+                            <input name="settlements"  type="text" autocomplete="off" autofocus placeholder="Number of payments" value="1">
+                        </td>
+                    </tr>
+                </table>
+                 <input type="date" id="paydate" name="paydate" placeholder="Expense date" >
+                <input type="submit" value="Add">
+            </form>
+            <br><br><br><br><br>
+            <button onclick="window.location.href='listed'">
+              Current State
+            </button>
+            <button onclick="window.location.href='Graph'">
+              Graph
+            </button>
+            <button onclick="window.location.href='logout'">
+              LogOut
+            </button>
+
     {% else %}
         <h1> You are not logged in. <a href="/login">Log in</a></h1>
     {% endif %}

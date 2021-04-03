@@ -29,11 +29,13 @@ def index():
     categories = db.execute('SELECT * FROM categories ORDER BY category_id')
     pays = db.execute('SELECT * FROM payTypes ORDER BY pay_id')
     user_name = session.get("name")
-
     if not session.get("lang") or session.get("lang") == "en":
-        return render_template("index.html", user_name=user_name, categories=categories, pays=pays)
+        user_lang = "en"
     else:
-        return render_template("index_he.html", user_name=user_name, categories=categories, pays=pays)
+        user_lang = "he"
+    return render_template("index.html", user_name=user_name, user_lang=user_lang, categories=categories, pays=pays)
+    # else:
+    #     return render_template("index_he.html", user_name=user_name, categories=categories, pays=pays)
 
 
 @app.route('/login', methods=["GET", "POST"])
