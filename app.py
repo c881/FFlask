@@ -17,7 +17,6 @@ ERRORS = {"sum": "חסר סכום", "category": "לא בחרת קטגוריה", 
 
 
 @app.route('/')
-@app.route('/en')
 def index():
     """If the user isn't logged in, got to Login page.
         Else, if logged in - got to index and use the user name for personalize.
@@ -31,8 +30,14 @@ def index():
     user_name = session.get("name")
     if not session.get("lang") or session.get("lang") == "en":
         user_lang = "en"
+        headlines = db.execute('''SELECT title_id, title_e_name as name
+                               FROM headlines 
+                               WHERE screen_id="index"''')
     else:
         user_lang = "he"
+        headlines = db.execute('''SELECT title_id, title_h_name as name 
+                                       FROM headlines 
+                                       WHERE screen_id="index"''')
     return render_template("index.html", user_name=user_name, user_lang=user_lang, categories=categories, pays=pays)
     # else:
     #     return render_template("index_he.html", user_name=user_name, categories=categories, pays=pays)

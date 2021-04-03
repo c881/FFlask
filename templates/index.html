@@ -28,8 +28,10 @@
             <form action="/added" method="post">
                 <table>
                     <tr>
-                        <td class="english">
-                            <label class="english" for="sum">sum</label>
+                        <td>
+                            <label for="sum">
+                                {%  %}
+                            </label>
                         </td>
                         <td>
                             <input name="sum" id="sum" type="text" autocomplete="off" autofocus placeholder="Amount">
@@ -43,7 +45,7 @@
                             <label class="english" for="categories">categories</label>
                         </td>
                         <td>
-                            <select class="form-select" id= "categories" name="categories" >
+                            <select class="form-select" id="categories" name="categories" >
                                 <option disabled selected value="">Category</option>
                                     {% for category in categories %}
                                         <option value="{{category.category_id}}">{{category.category_e_name}}</option>
