@@ -1,4 +1,8 @@
-{% extends "layout.html" %}
+{% if user_lang == "en" %}
+    {% extends "layout.html" %}
+{% else %}
+    {% extends "layout_he.html" %}
+{% endif %}
 {% block title %}
     גלנטי - רשימת הוצאות
 {% endblock %}
@@ -19,9 +23,9 @@
         {% for row in rows %}
             <tr>
                 <td>{{ row.category_h_name }}</td>
-                <td>{{ row.sum }}</td>
+                <td>{{ row.Sum }}</td>
                 <td>{{ row.Num_Of_Pays }}</td>
-                <td>{{ row.Pay_Name }}</td>
+                <td>{{ row.pay_h_name }}</td>
                 <td>{{ row.Date_Of_Pay }}</td>
             </tr>
         {% endfor %}

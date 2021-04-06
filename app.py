@@ -38,10 +38,12 @@ def index():
         headlines = db.execute('''SELECT title_id, title_h_name as name 
                                        FROM headlines 
                                        WHERE screen_id="index"''')
+    dict_headlines = {}
+    for headline in headlines:
+        dict_headlines[headline['title_id']] = headline['name']
     return render_template("index.html", user_name=user_name, user_lang=user_lang,
-                           categories=categories, pays=pays, headlines=headlines)
-    # else:
-    #     return render_template("index_he.html", user_name=user_name, categories=categories, pays=pays)
+                           categories=categories, pays=pays, headlines=dict_headlines)
+
 
 
 @app.route('/login', methods=["GET", "POST"])
@@ -70,7 +72,7 @@ def added():
     for char in sum_input:
         if char not in valid_chars:
             return render_template("error.html", message=ERRORS["values"])
-
+    sum_input = float(sum_input)
     category_id = int(request.form.get("categories"))
     if not category_id:
         return render_template("error.html", message=ERRORS["category"])
@@ -87,7 +89,7 @@ def added():
     if not pay_type_id:
         return render_template("error.html", message=ERRORS["pay"])
 
-    rows = db.execute('SELECT PayId FROM payTypes where PayId  = (?)', pay_type_id)
+    rows = db.execute('SELECT Pay_Id FROM payTypes where Pay_Id  = (?)', pay_type_id)
     if len(rows) == 0:
         return render_template("error.html", message=ERRORS["pay"])
 
@@ -98,18 +100,18 @@ def added():
     if num_of_pays == 0:
         return render_template("error.html", message=ERRORS["num_of_pays"])
 
-    db.execute('INSERT INTO expenses VALUES (?, ?, ?, ?, ?)', category_id, float(sum_input), pay_type_id, num_of_pays,
-               pay_date)
+    db.execute('INSERT INTO expenses VALUES (?, ?, ?, ?, ?)', category_id, sum_input, pay_type_id,
+               num_of_pays, pay_date)
     return redirect("/")
 
 
 @app.route('/listed')
 def checked():
+    user_lang = session.get("lang")
     rows = db.execute('''SELECT a.category_id, 
                                 a.sum, 
                                 b.category_h_name,
                                 c.pay_h_name,
-                                c.pay_e_name,
                                 c.pay_e_name,
                                 a.Num_Of_Pays,
                                 a.Date_Of_Pay 
@@ -119,7 +121,7 @@ def checked():
                              where a.category_id = b.category_id
                                and a.Pay_Type_Id = c.Pay_ID 
                              ORDER BY a.category_id, Date_Of_Pay''')
-    return render_template("listed.html", rows=rows)
+    return render_template("listed.html", rows=rows, user_lang=user_lang)
 
 
 if __name__ == '__main__':
