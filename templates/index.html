@@ -30,20 +30,26 @@
                     <tr>
                         <td>
                             <label for="sum">
-                                {%  %}
+                                {% for headline in headlines %}
+                                    {% if headline.title_id == "sum" %}
+                                        {{ headline.name }}
+                                    {% endif %}
+                                {% endfor%}
                             </label>
                         </td>
                         <td>
                             <input name="sum" id="sum" type="text" autocomplete="off" autofocus placeholder="Amount">
                         </td>
-                        <td class="hebrew">
-                            <label class="hebrew" for="sum">סכום</label>
-                        </td>
                     </tr>
                     <tr>
-                        <td class="english">
-                            <label class="english" for="categories">categories</label>
-                        </td>
+                        <td>
+                            <label for="categories">
+                            {% for headline in headlines %}
+                                {% if headline.title_id == "categories" %}
+                                    {{ headline.name }}
+                                {% endif %}
+                            {% endfor%}
+                            </label>
                         <td>
                             <select class="form-select" id="categories" name="categories" >
                                 <option disabled selected value="">Category</option>
@@ -52,36 +58,56 @@
                                     {% endfor %}
                             </select>
                         </td>
-                        <td class="hebrew">
-                            <label class="hebrew" for="categories">קטגוריות</label>
-                        </td>
                     </tr>
                     <tr>
-                        <td class="english">
-                            <label class="english" for="pays">pays</label>
+                        <td>
+                            <label for="paytype">
+                                {% for headline in headlines %}
+                                    {% if headline.title_id == "paytype" %}
+                                        {{ headline.name }}
+                                    {% endif %}
+                                {% endfor%}
+                            </label>
                         </td>
                         <td>
-                            <select class="form-select" id="pays" name="pays" >
+                            <select class="form-select" id="paytypes" name="pays" >
                                 <option selected value="">Payment type</option>
                                     {% for pay in pays %}
                                         <option value="{{pay.pay_id}}">{{pay.pay_e_name}}</option>
                                     {% endfor %}
                             </select>
                         </td>
-                        <td class="hebrew">
-                            <label class="hebrew" for="pays">סוג תשלום</label>
-                        </td>
                     </tr>
                     <tr>
-                        <td class="english">
-                            <label class="english" for="pays">pays</label>
+                        <td>
+                            <label for="settlements">
+                                {% for headline in headlines %}
+                                    {% if headline.title_id == "settlements" %}
+                                        {{ headline.name }}
+                                    {% endif %}
+                                {% endfor%}
+                            </label>
                         </td>
                         <td>
                             <input name="settlements"  type="text" autocomplete="off" autofocus placeholder="Number of payments" value="1">
                         </td>
                     </tr>
+                    <tr>
+                        <td>
+                            <label for="paydate">
+                                {% for headline in headlines %}
+                                    {% if headline.title_id == "paydate" %}
+                                        {{ headline.name }}
+                                    {% endif %}
+                                {% endfor%}
+                            </label>
+                        </td>
+                        <td>
+                            <input type="date" id="paydate" name="paydate" placeholder="Expense date" >
+                        </td>
+                    </tr>
+
                 </table>
-                 <input type="date" id="paydate" name="paydate" placeholder="Expense date" >
                 <input type="submit" value="Add">
             </form>
             <br><br><br><br><br>

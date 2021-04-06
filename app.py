@@ -38,7 +38,8 @@ def index():
         headlines = db.execute('''SELECT title_id, title_h_name as name 
                                        FROM headlines 
                                        WHERE screen_id="index"''')
-    return render_template("index.html", user_name=user_name, user_lang=user_lang, categories=categories, pays=pays)
+    return render_template("index.html", user_name=user_name, user_lang=user_lang,
+                           categories=categories, pays=pays, headlines=headlines)
     # else:
     #     return render_template("index_he.html", user_name=user_name, categories=categories, pays=pays)
 
