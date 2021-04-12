@@ -1,5 +1,5 @@
 from cs50 import SQL
-from flask import Flask, redirect, render_template, request, session
+from flask import Flask, jsonify, redirect, render_template, request, session
 from flask_session import Session
 
 
@@ -41,6 +41,7 @@ def index():
     dict_headlines = {}
     for headline in headlines:
         dict_headlines[headline['title_id']] = headline['name']
+    # headlines = jsonify(headlines)
     return render_template("index.html", user_name=user_name, user_lang=user_lang,
                            categories=categories, pays=pays, headlines=dict_headlines)
 
@@ -120,6 +121,26 @@ def checked():
                              paytypes c
                              where a.category_id = b.category_id
                                and a.Pay_Type_Id = c.Pay_ID 
+                             ORDER BY a.category_id, Date_Of_Pay''')
+    return render_template("listed.html", rows=rows, user_lang=user_lang)
+
+
+@app.route('/summed')
+def checked():
+    user_lang = session.get("lang")
+    rows = db.execute('''SELECT a.category_id, 
+                                sum(a.sum) as summed, 
+                                b.category_h_name,
+                                c.pay_h_name,
+                                c.pay_e_name,
+                                a.Num_Of_Pays,
+                                a.Date_Of_Pay 
+                        FROM expenses a, 
+                             categories b,
+                             paytypes c
+                             where a.category_id = b.category_id
+                               and a.Pay_Type_Id = c.Pay_ID
+                             group by a.category_id
                              ORDER BY a.category_id, Date_Of_Pay''')
     return render_template("listed.html", rows=rows, user_lang=user_lang)
 
