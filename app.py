@@ -126,23 +126,17 @@ def checked():
 
 
 @app.route('/summed')
-def checked():
+def summed():
     user_lang = session.get("lang")
     rows = db.execute('''SELECT a.category_id, 
                                 sum(a.sum) as summed, 
-                                b.category_h_name,
-                                c.pay_h_name,
-                                c.pay_e_name,
-                                a.Num_Of_Pays,
-                                a.Date_Of_Pay 
+                                b.category_h_name
                         FROM expenses a, 
-                             categories b,
-                             paytypes c
+                             categories b
                              where a.category_id = b.category_id
-                               and a.Pay_Type_Id = c.Pay_ID
                              group by a.category_id
-                             ORDER BY a.category_id, Date_Of_Pay''')
-    return render_template("listed.html", rows=rows, user_lang=user_lang)
+                             ORDER BY a.category_id''')
+    return render_template("summed.html", rows=rows, user_lang=user_lang)
 
 
 if __name__ == '__main__':
