@@ -18,10 +18,9 @@ ERRORS = {"sum": "חסר סכום", "category": "לא בחרת קטגוריה", 
 
 @app.route('/')
 def index():
-    """If the user isn't logged in, got to Login page.
-        Else, if logged in - got to index and use the user name for personalize.
+    """If the user isn't logged in, go to Login page.
+        Else, if logged in - go to index and use the user name for personalize.
         Default page in english."""
-
     if not session.get("name"):
         return redirect("/login",)
 
@@ -41,10 +40,8 @@ def index():
     dict_headlines = {}
     for headline in headlines:
         dict_headlines[headline['title_id']] = headline['name']
-    # headlines = jsonify(headlines)
     return render_template("index.html", user_name=user_name, user_lang=user_lang,
                            categories=categories, pays=pays, headlines=dict_headlines)
-
 
 
 @app.route('/login', methods=["GET", "POST"])
@@ -59,6 +56,7 @@ def login():
 
 @app.route('/logout')
 def logout():
+    """Logging out of the system."""
     session["name"] = None
     return render_template("logout.html")
 
@@ -107,7 +105,8 @@ def added():
 
 
 @app.route('/listed')
-def checked():
+def listed():
+    """Get all the user expenses."""
     user_lang = session.get("lang")
     rows = db.execute('''SELECT a.category_id, 
                                 a.sum, 
@@ -127,6 +126,7 @@ def checked():
 
 @app.route('/summed')
 def summed():
+    """Get the user expenses, summered by category"""
     user_lang = session.get("lang")
     rows = db.execute('''SELECT a.category_id, 
                                 sum(a.sum) as summed, 
