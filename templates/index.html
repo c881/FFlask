@@ -93,16 +93,16 @@
             </form>
             <br><br><br><br><br>
             <button onclick="window.location.href='listed'">
-              Current State
+              {{ headlines["current"] }}
             </button>
             <button onclick="window.location.href='summed'">
-              Current State
+              {{ headlines["summerized"] }}
             </button>
             <button onclick="window.location.href='graph'">
-              Graph
+              {{ headlines["graph"] }}
             </button>
             <button onclick="window.location.href='logout'">
-              LogOut
+              {{ headlines["logout"] }}
             </button>
 
     {% else %}
