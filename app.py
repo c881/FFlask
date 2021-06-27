@@ -27,16 +27,16 @@ def index():
     categories = db.execute('SELECT * FROM categories ORDER BY category_id')
     pays = db.execute('SELECT * FROM payTypes ORDER BY pay_id')
     user_name = session.get("name")
-    if not session.get("lang") or session.get("lang") == "en":
+    if session.get("lang") == "he":
+        headlines = db.execute('''SELECT title_id, title_h_name as name 
+                                               FROM headlines 
+                                               WHERE screen_id="index"''')
+    else:
         user_lang = "en"
         headlines = db.execute('''SELECT title_id, title_e_name as name
-                               FROM headlines 
-                               WHERE screen_id="index"''')
-    else:
-        user_lang = "he"
-        headlines = db.execute('''SELECT title_id, title_h_name as name 
                                        FROM headlines 
                                        WHERE screen_id="index"''')
+
     dict_headlines = {}
     for headline in headlines:
         dict_headlines[headline['title_id']] = headline['name']
@@ -131,11 +131,13 @@ def summed():
     rows = db.execute('''SELECT a.category_id, 
                                 sum(a.sum) as summed, 
                                 b.category_h_name
+                                b.category_e_name
                         FROM expenses a, 
                              categories b
                              where a.category_id = b.category_id
                              group by a.category_id
                              ORDER BY a.category_id''')
+
     return render_template("summed.html", rows=rows, user_lang=user_lang)
 
 
