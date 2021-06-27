@@ -13,11 +13,19 @@
 <table>
     <thead>
         <tr>
-            <th>הוצאה</th>
-            <th>סכום</th>
-            <th>מספר תשלומים</th>
-            <th>סוג תשלום</th>
-            <th>תאריך</th>
+            {% if user_lang == "en" %}
+                <th>Expences</th>
+                <th>Sum</th>
+                <th>Num of payment</th>
+                <th>Type of payment</th>
+                <th>Date</th>
+            {% else %}
+                <th>הוצאה</th>
+                <th>סכום</th>
+                <th>מספר תשלומים</th>
+                <th>סוג תשלום</th>
+                <th>תאריך</th>
+            {% endif %}
         </tr>
     </thead>
         {% for row in rows %}
@@ -31,8 +39,19 @@
         {% endfor %}
     <tfoot>
         <tr>
-            <td>הוצאה</td>
-            <td>סכום</td>
+            {% if user_lang == "en" %}
+                <tf>Expences</tf>
+                <tf>Sum</tf>
+                <tf>Num of payment</tf>
+                <tf>Type of payment</tf>
+                <tf>Date</tf>
+            {% else %}
+                <tf>הוצאה</tf>
+                <tf>סכום</tf>
+                <tf>מספר תשלומים</tf>
+                <tf>סוג תשלום</tf>
+                <tf>תאריך</tf>
+            {% endif %}
         </tr>
     </tfoot>
     <tbody>
