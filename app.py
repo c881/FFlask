@@ -27,12 +27,13 @@ def index():
     categories = db.execute('SELECT * FROM categories ORDER BY category_id')
     pays = db.execute('SELECT * FROM payTypes ORDER BY pay_id')
     user_name = session.get("name")
-    if session.get("lang") == "he":
+    print(f"index {session['lang']}")
+    user_lang = session.get("lang")
+    if user_lang == "he":
         headlines = db.execute('''SELECT title_id, title_h_name as name 
                                                FROM headlines 
                                                WHERE screen_id="index"''')
     else:
-        user_lang = "en"
         headlines = db.execute('''SELECT title_id, title_e_name as name
                                        FROM headlines 
                                        WHERE screen_id="index"''')
@@ -50,6 +51,7 @@ def login():
     if request.method == 'POST':
         session["name"] = request.form.get("name")
         session["lang"] = request.form.get("lang")
+        print(session["lang"])
         return redirect("/")
     return render_template("login.html")
 
@@ -128,17 +130,39 @@ def listed():
 def summed():
     """Get the user expenses, summered by category"""
     user_lang = session.get("lang")
-    rows = db.execute('''SELECT a.category_id, 
+    if user_lang == 'he':
+        rows = db.execute('''SELECT a.category_id, 
                                 sum(a.sum) as summed, 
-                                b.category_h_name
-                                b.category_e_name
+                                b.category_h_name as name
                         FROM expenses a, 
                              categories b
                              where a.category_id = b.category_id
                              group by a.category_id
                              ORDER BY a.category_id''')
+    else:
+        rows = db.execute('''SELECT a.category_id, 
+                                        sum(a.sum) as summed, 
+                                        b.category_e_name as name
+                                FROM expenses a, 
+                                     categories b
+                                     where a.category_id = b.category_id
+                                     group by a.category_id
+                                     ORDER BY a.category_id''')
 
-    return render_template("summed.html", rows=rows, user_lang=user_lang)
+    if session.get("lang") == "he":
+        headlines = db.execute('''SELECT title_id, title_h_name as name 
+                                               FROM headlines 
+                                               WHERE screen_id="summed"''')
+    else:
+        headlines = db.execute('''SELECT title_id, title_e_name as name
+                                       FROM headlines 
+                                       WHERE screen_id="summed"''')
+
+    dict_headlines = {}
+    for headline in headlines:
+        dict_headlines[headline['title_id']] = headline['name']
+
+    return render_template("summed.html", rows=rows, user_lang=user_lang, headlines=dict_headlines)
 
 
 if __name__ == '__main__':

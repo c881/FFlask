@@ -13,34 +13,20 @@
 <table>
     <thead>
         <tr>
-            {% if user_lang == "en" %}
-                <th>Expences</th>
-                <th>Sum</th>
-            {% else %}
-                <th>הוצאה</th>
-                <th>סכום</th>
-            {% endif %}
+            <th>{{ headlines["expenses"] }}</th>
+            <th>{{ headlines["sum"] }}</th>
         </tr>
     </thead>
         {% for row in rows %}
             <tr>
-                {% if user_lang == "en" %}
-                    <td>{{ row.category_e_name }}</td>
-                {% else %}
-                    <td>{{ row.category_h_name }}</td>
-                {% endif %}
+                <td>{{ row.name }}</td>
                 <td>{{ row.summed }}</td>
             </tr>
         {% endfor %}
     <tfoot>
         <tr>
-            {% if user_lang == "en" %}
-                <td>Expences</td>
-                <td>Sum</td>
-            {% else %}
-                <td>הוצאה</td>
-                <td>סכום</td>
-            {% endif %}
+            <td>{{ headlines["expenses"] }}</td>
+            <td>{{ headlines["sum"] }}</td>
         </tr>
     </tfoot>
     <tbody>
