@@ -91,8 +91,13 @@
                 </table>
                 <input type="submit" value="Add">
             </form>
-            <br><br><br><br><br>
-            <button onclick="window.location.href='listed'">
+
+    {% else %}
+        <h1> You are not logged in. <a href="/login">Log in</a></h1>
+    {% endif %}
+{% endblock %}
+{% block foot %}
+<button onclick="window.location.href='listed'">
               {{ headlines["current"] }}
             </button>
             <button onclick="window.location.href='summed'">
@@ -104,8 +109,4 @@
             <button onclick="window.location.href='logout'">
               {{ headlines["logout"] }}
             </button>
-
-    {% else %}
-        <h1> You are not logged in. <a href="/login">Log in</a></h1>
-    {% endif %}
 {% endblock %}
