@@ -3,6 +3,7 @@ click==7.1.2
 cs50==6.0.3
 Flask==1.1.2
 Flask-Session==0.3.2
+flask-sqlalchemy
 greenlet==1.0.0
 gunicorn==20.0.4
 itsdangerous==1.1.0
